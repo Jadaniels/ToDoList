@@ -1,0 +1,67 @@
+<ion-header>
+
+    <ion-toolbar>
+      <ion-title center>TaskList</ion-title>
+      
+      <ion-button expand="block" fill="outline" (click)='addItem()'>
+          <ion-icon slot="start" name="add"></ion-icon>
+          Add Item
+          <ion-icon slot="end" name="add"></ion-icon>
+      </ion-button>
+      
+    </ion-toolbar>
+
+</ion-header>
+
+<ion-content padding>
+
+<!-- <ion-list>
+    <ion-item *ngFor = "let task of tasks">
+      {{task.title}}
+    </ion-item>
+</ion-list> -->
+
+
+<ion-list>
+    <ion-item-sliding #ionslidingItem *ngFor="let task of tasks" | async>
+      <ion-item [ngClass]="{taskDone: task.status == 'done'}">
+        {{task.title}}
+      </ion-item>
+      <ion-item-options slide="end">
+        <ion-button icon-only (click)="markAsDone(task)" color="secondary">
+          <ion-icon name="checkmark"></ion-icon>
+        </ion-button>
+        <ion-button icon-only (click)="removeTask(task)" color="danger">
+          <ion-icon name="trash"></ion-icon>
+        </ion-button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+
+
+
+
+
+
+
+<!-- <ion-list>
+      <ion-item *ngIf="list">  
+        {{ list }}
+      </ion-item>
+</ion-list> -->
+</ion-content>
+
+<script src="https://www.gstatic.com/firebasejs/5.9.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCsCNOk6NawT6ZZ8FLTyr0QAbGPpFxZa78",
+    authDomain: "ionic2dol-57e3b.firebaseapp.com",
+    databaseURL: "https://ionic2dol-57e3b.firebaseio.com",
+    projectId: "ionic2dol-57e3b",
+    storageBucket: "ionic2dol-57e3b.appspot.com",
+    messagingSenderId: "524484449444"
+  };
+  firebase.initializeApp(config);
+</script>
