@@ -30,15 +30,51 @@ tasks: Observable<any[]>;
 
   }
 
+  // async addItem(){
+  //    let theNewTask: any = prompt("New Task");
+  //    if (theNewTask !==''){
+  //     let newTaskRef = this.taskList.push({
+  //       id: '', title: theNewTask, status:'open'
+  //     });
+  //     newTaskRef.update({id: newTaskRef.key})
+  //   }
+  // }
+
   async addItem(){
-     let theNewTask: any = prompt("New Task");
-     if (theNewTask !==''){
-      let newTaskRef = this.taskList.push({
-        id: '', title: data.theNewTask, status:'open'
-      });
-      newTaskRef.update({id: newTaskRef.key})
-    }
+    let prompt = await this.alertCtrl.create({
+  header: 'New Items',
+  message: 'Enter item to be added:',
+  inputs: [{
+    name: 'userList',
+    type: 'text'
+  }],
+  buttons: [{
+    text: 'Cancel',
+    role: 'cancel' 
+  },{
+  text: 'Save',
+  handler: data => {
+    this.taskList = data.userList;
+    let newTaskRef = this.taskList.push({
+      id: '', title: name, status:'open'
+    });
+    newTaskRef.update({id: newTaskRef.key})
+  
+    toast.present();
   }
+  }]
+    });
+  
+  let toast = await this.toastCtrl.create({
+      message: 'Item Added',
+      duration: 5000,
+      showCloseButton: true,
+      color: 'success'
+  })
+  
+  prompt.present();
+  }
+  
 
 markAsDone(task:any) {
   task.status = "done";
@@ -53,38 +89,3 @@ removeTask(task: any){
   //   this.tasks.splice(index,1);
   }
 }
-
-
-
-
-
-// async addItem(){
-//   let prompt = await this.alertCtrl.create({
-// header: 'New Items',
-// message: 'Enter item to be added:',
-// inputs: [{
-//   name: 'userList',
-//   type: 'text'
-// }],
-// buttons: [{
-//   text: 'Cancel',
-//   role: 'cancel'
-// },{
-// text: 'Save',
-// handler: data => {
-//   this.list = data.userList;
-//   toast.present();
-// }
-// }]
-//   });
-
-// let toast = await this.toastCtrl.create({
-//     message: 'Item Added',
-//     duration: 5000,
-//     showCloseButton: true,
-//     color: 'success'
-// })
-
-// prompt.present();
-// }
-
